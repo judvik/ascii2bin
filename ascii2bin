@@ -1,0 +1,49 @@
+/*********************************/
+/* Program name: ascii2bin	 */
+/* Author: Judiel Ayson		 */
+/* Date: March 4, 2021		 */
+/*********************************/
+/* Description: reads binary to  */
+/* 		decimal	     	 */
+/* Validation Checks:		 */
+/* Enhancements:		 */
+/*********************************/
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <unistd.h>
+#define byte unsigned char
+
+int main (int argc, char * argv[], char ** envp){
+
+    int offsetg = 0x30;
+    int number = 0;
+    int digit = 0;
+    int retval;
+    byte ascii_value[1];
+
+    retval = read(STDIN_FILENO, &ascii_value, 1);
+
+    while (retval == 1){
+    	 if ((ascii_value !='0') && (ascii_value != '1') && (ascii_value != '\n')){
+	    return 1;
+	 }
+	 else {
+	    digit = ascii_value - offset;
+	    number = (number << 1) + digit;
+	    retval = read(0, &ascii_value, 1);
+	 }
+    }
+
+    if (number > pow(2, 32) || retval != 1) {
+       printf("Error! \n");
+       return 1;
+    }
+    else {
+    	 printf("%u\n", number);
+	 return 0;
+    }
+
+}
